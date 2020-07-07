@@ -108,11 +108,13 @@ namespace TypeReferences
         /// </summary>
         public Type BaseType { get; private set; }
 
+        public bool AllowSelf = true;
+
         /// <inheritdoc/>
         public override bool IsConstraintSatisfied(Type type)
         {
             return base.IsConstraintSatisfied(type)
-                && BaseType.IsAssignableFrom(type) && type != BaseType;
+                && BaseType.IsAssignableFrom(type) && (AllowSelf || type != BaseType);
         }
     }
 
